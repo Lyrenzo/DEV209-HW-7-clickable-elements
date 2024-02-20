@@ -1,14 +1,14 @@
 let NoteArray = [];
 
-let NoteObject = function (pData, pType, pPriority, pRating) {
-    this.data = pData;
-    this.type = pType;
-    this.priority = pPriority;
+let NoteObject = function (pArtist, pAlbumName, pAlbumYear, pRating) {
+    this.artist = pArtist;
+    this.albumName = pAlbumName;
+    this.albumYear = pAlbumYear;
     this.rating = pRating;
 }
 
 $(document).on("pagecreate", function () {
-    $(document).on("click", "#listPageItems li", function () {
+    $(document).on("click", "#myul li", function () {
         var index = $(this).index();
         displayDetail(index);
     });
@@ -19,7 +19,7 @@ $(document).on("pagecreate", function () {
         var albumYear = $("#yearInput").val();
         var rating = $("#select-type").val();
 
-        NoteArray.push(new NoteObject(albumName, artist, albumYear, rating));
+        NoteArray.push(new NoteObject(artist, albumName, albumYear, rating));
 
         // Clear input fields after adding
         $("#artistInput").val("");
@@ -41,7 +41,7 @@ function createList() {
     });
 
     filteredNoteArray.forEach(function (element, index) {
-        var li = $("<li>").html(element.priority + ":  " + element.type + "   " + element.data + " - Rating: " + element.rating);
+        var li = $("<li>").html("Artist: " + element.artist + " - Album: " + element.albumName + " - Year: " + element.albumYear + " - Rating: " + element.rating);
         myul.append(li);
     });
 
@@ -55,17 +55,17 @@ function createList() {
 
 function displayDetail(index) {
     var selectedItem = NoteArray[index];
-    $("#detailPageContent").html("<p>Data: " + selectedItem.data + "</p>" +
-                                 "<p>Type: " + selectedItem.type + "</p>" +
-                                 "<p>Priority: " + selectedItem.priority + "</p>" +
+    $("#detailPageContent").html("<p>Artist: " + selectedItem.artist + "</p>" +
+                                 "<p>Album: " + selectedItem.albumName + "</p>" +
+                                 "<p>Year: " + selectedItem.albumYear + "</p>" +
                                  "<p>Rating: " + selectedItem.rating + "</p>");
     $.mobile.changePage("#detailPage", { transition: "slide" });
 }
 
-$(document).on("pagebeforeshow", "#addPage", function () {
-    selectedType = "";
+$(document).on("pagebeforeshow", "#add", function () {
+    // Any initialization logic for the add page can go here
 });
 
-$(document).on("pagebeforeshow", "#listPage", function () {
+$(document).on("pagebeforeshow", "#show", function () {
     createList();
 });
