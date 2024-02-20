@@ -9,14 +9,12 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     
-    <script src="hw5.js"></script>
+    <script src="index.js"></script>
   
-
-
     <title>My Favorite Music</title>
 </head>
 <body>
-    
+
 <div data-role="page" id="home">
 
     <!-- header --> 
@@ -31,28 +29,24 @@
     <h2>Welcome to Your Music Homepage!</h2>
     </div>
 
-    <!-- content -->
+    <!-- content -->
     <div data-role="content" data-theme='a'>
         You can pick and rate your favorite albums here.<br><br>
         <img src="vinyl.jpg" alt="picture of vinyl">
     </div>
     
-
-
-    <!-- notes footer --> 
+    <!-- footer --> 
     <div data-role="footer" data-theme='b'>
     <h3>Copyright 2024 by Taylor Davis & Lorenzo Dacanay</h3>
     </div>
 
 </div>   <!-- end of page --------------------------------------------> 
 
-  
-
 <div data-role="page" id="show">
     
     <!-- header --> 
     <div data-role="header" data-theme='e'>
-        <!-- /navbar -->
+        <!-- navbar -->
         <div data-role="navbar" data-theme='e'>
             <ul>
             <li><a href="#home" data-transition="pop" >Home Page</a></li>
@@ -61,21 +55,19 @@
         </div>
     <h2>Music you have picked and rated.</h2>
     <br><br>
- 
     </div>
 
-    <!-- content -->
+    <!-- content -->
     <div data-role="content" data-theme='c'>
         <ul id="myul" data-role="listview"></ul>  
     </div>
 
-    <!-- notes footer --> 
+    <!-- footer --> 
     <div data-role="footer" data-theme='b'>
     <h3>Copyright 2024 by Taylor Davis & Lorenzo Dacanay</h3>
     </div>
 
 </div>   <!-- end of page -----------------------------------> 
-
 
 <div data-role="page" id="add">
 
@@ -90,27 +82,27 @@
     <h2>Add a New Music</h2>
     </div>
 
-    <!-- content -->
+    <!-- content -->
     <div data-role="content" data-theme='d'>
  
     Enter Artist <br />
-    <input type="text" value="" id="priorityInput" /><br />
+    <input type="text" value="" id="artistInput" /><br />
     Enter Album Name<br>
-    <input type="text" value="" id="dataInput" />
+    <input type="text" value="" id="albumInput" />
     Enter Album Year<br>
-    <input type="text" value="" id="dataInput2" />
+    <input type="text" value="" id="yearInput" />
 
     <label for="select-type">Select a Rating</label>
     <select name="select-type" id="select-type">
-        <option value="s1">1 Star</option>
-        <option value="s2">2 Stars</option>
-        <option value="s3">3 Stars</option>
+        <option value="1">1 Star</option>
+        <option value="2">2 Stars</option>
+        <option value="3">3 Stars</option>
     </select>
 
     <button id="buttonAdd">Add New Music</button>
     <br>
 
-        <a href="#popupMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">What next?</a>
+        <a href="#popupMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">See my Music!</a>
         <div data-role="popup" id="popupMenu" data-theme="b">
         <ul data-role="listview" data-inset="true" style="min-width:210px;">
         <li data-role="list-divider">Choose an action</li>
@@ -121,14 +113,12 @@
         
     </div>
 
-    <!-- notes footer --> 
+    <!-- footer --> 
     <div data-role="footer" data-theme='b'>
     <h3>Copyright 2024 by Taylor Davis & Lorenzo Dacanay</h3>
     </div>
 
 </div>  <!-- end of page ---------------------------------------> 
-    
-
 
 </body>
 </html>

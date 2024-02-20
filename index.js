@@ -1,53 +1,71 @@
 let NoteArray = [];
 
-let NoteObject = function (pData, pType, pPriority) {
+let NoteObject = function (pData, pType, pPriority, pRating) {
     this.data = pData;
     this.type = pType;
     this.priority = pPriority;
+    this.rating = pRating;
 }
 
-NoteArray.push ( new NoteObject("Eat Lunch", "Home", 1)  );
-NoteArray.push ( new NoteObject("Do 209 HW", "School", 2)  );
-NoteArray.push ( new NoteObject("Watch Dune", "Home", 3)  );
-
-let selectedType = "";
-
-// code runs immediately
-//================================================================
-
-// runs  when dom is loaded
-document.addEventListener("DOMContentLoaded", function (event) {
-
-    createList();
-
-    document.getElementById("buttonAdd").addEventListener("click", function () {
-        NoteArray.push ( new NoteObject(document.getElementById("dataInput").value, selectedType,
-        document.getElementById("priorityInput").value ) );
-        
-        document.getElementById("dataInput").value = "";
-        document.getElementById("priorityInput").value = "";
-
-        createList();
+$(document).on("pagecreate", function () {
+    $(document).on("click", "#listPageItems li", function () {
+        var index = $(this).index();
+        displayDetail(index);
     });
 
-    $(document).bind("change", "#select-type", function (event, ui) {
-        selectedType = document.getElementById("select-type").value;
-    });
+    $(document).on("click", "#buttonAdd", function () {
+        var artist = $("#artistInput").val();
+        var albumName = $("#albumInput").val();
+        var albumYear = $("#yearInput").val();
+        var rating = $("#select-type").val();
 
+        NoteArray.push(new NoteObject(albumName, artist, albumYear, rating));
+
+        // Clear input fields after adding
+        $("#artistInput").val("");
+        $("#albumInput").val("");
+        $("#yearInput").val("");
+        $("#select-type").val(""); // Reset rating dropdown
+
+        createList(); // Update the list
+    });
 });
 
-
-//======================================
-// function defintions
 function createList() {
-    // clear prior data
-    var myul = document.getElementById("myul");
-    myul.innerHTML = "";
+    var myul = $("#myul");
+    myul.empty(); // Clear the content of the list
 
-    NoteArray.forEach(function (element,) {   // use handy array forEach method
-        var li = document.createElement('li');
-          // added data-role="listview" to the ul in the html
-        li.innerHTML = element.priority + ":  " + element.type + "   " + element.data;
-        myul.appendChild(li);
+    // Filter out entries with null ratings
+    var filteredNoteArray = NoteArray.filter(function(element) {
+        return element.rating !== null;
     });
-};
+
+    filteredNoteArray.forEach(function (element, index) {
+        var li = $("<li>").html(element.priority + ":  " + element.type + "   " + element.data + " - Rating: " + element.rating);
+        myul.append(li);
+    });
+
+    // Refresh the listview
+    if (myul.hasClass('ui-listview')) {
+        myul.listview("refresh");
+    } else {
+        myul.trigger('create');
+    }
+}
+
+function displayDetail(index) {
+    var selectedItem = NoteArray[index];
+    $("#detailPageContent").html("<p>Data: " + selectedItem.data + "</p>" +
+                                 "<p>Type: " + selectedItem.type + "</p>" +
+                                 "<p>Priority: " + selectedItem.priority + "</p>" +
+                                 "<p>Rating: " + selectedItem.rating + "</p>");
+    $.mobile.changePage("#detailPage", { transition: "slide" });
+}
+
+$(document).on("pagebeforeshow", "#addPage", function () {
+    selectedType = "";
+});
+
+$(document).on("pagebeforeshow", "#listPage", function () {
+    createList();
+});
